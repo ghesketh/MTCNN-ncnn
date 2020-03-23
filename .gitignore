@@ -1,13 +1,22 @@
 # Auxiliary
+*.db
+*.filters
+*.ipdb
 *.lastbuildstate
 *.log
+*.opendb
 *.pdb
+*.sarif
 *.tlog
+*.txt
+*.user
 *.xml
 
 # Intermediate
 *.d
 *.gch
+*.iobj
+*.ipch
 *.lo
 *.o
 *.obj
