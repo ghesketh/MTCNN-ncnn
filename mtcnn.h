@@ -53,6 +53,8 @@ typedef struct
 	int32_t iPixelW ;
 	int32_t iStride ;
 
+	float fScaleStep ;
+
 	float fSizeMax ;
 	float fSizeMin ;
 

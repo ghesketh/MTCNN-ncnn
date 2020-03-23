@@ -43,6 +43,8 @@ typedef struct client_options
 {
 	char * pBitmap ;
 
+	float fScaleStep ;
+
 	float fSizeMax ;
 	float fSizeMin ;
 
@@ -75,6 +77,13 @@ int SetOptions( client_options_t * pOptions, int iArgs, char * pArgs[] )
 						if( ++( iArg ) < iArgs )
 						{
 							pOptions->fSizeMin = strtof( pArgs[ iArg ], nullptr ) ;
+						}
+						break ;
+
+					case 's':
+						if( ++( iArg ) < iArgs )
+						{
+							pOptions->fScaleStep = strtof( pArgs[ iArg ], nullptr ) ;
 						}
 						break ;
 
@@ -435,6 +444,8 @@ int main( int iArgs, char * pArgs[] )
 		do
 		{
 			DetectOptions.iStride = ( DetectOptions.iPixelD * DetectOptions.iPixelW ) ;
+
+			DetectOptions.fScaleStep = ClientOptions.fScaleStep ;
 
 			DetectOptions.fSizeMax = ClientOptions.fSizeMax ;
 			DetectOptions.fSizeMin = ClientOptions.fSizeMin ;

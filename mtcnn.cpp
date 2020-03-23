@@ -85,10 +85,10 @@ typedef struct Detect_t
 {
 	ncnn::Net mtcnn_p, mtcnn_r, mtcnn_o ;
 
-	float fScaleStep = 0.709f ;
-
-	// default to default
+	// default to defaults
 	//
+	float fScaleStep = -1.f ;
+
 	float fSizeMax = -1.f ;
 	float fSizeMin = -1.f ;
 
@@ -584,6 +584,11 @@ static int32_t Detect( ObjectCallback_t Callback, void * pOpaque, ncnn::Mat & Bi
 
 		auto fSide = float( MTCNN::MIN< int32_t >( Bitmap.h, Bitmap.w ) ) ;
 
+		if( !( 0.f < pDetect->fScaleStep ) || !( 1 > pDetect->fScaleStep ) )
+		{
+			pDetect->fScaleStep = 0.709f ;
+		}
+
 		if( 0 > pDetect->fSizeMax )
 		{
 			pDetect->fSizeMax = roundf( 0.48f * fSide ) ;
@@ -958,6 +963,8 @@ int32_t detect_exec( Detect_t * pDetect, detect_options_t * pOptions )
 		{
 			break ;
 		}
+
+		pDetect->fScaleStep = pOptions->fScaleStep ;
 
 		pDetect->fSizeMax = pOptions->fSizeMax ;
 		pDetect->fSizeMin = pOptions->fSizeMin ;
