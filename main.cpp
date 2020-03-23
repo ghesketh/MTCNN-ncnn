@@ -8,8 +8,10 @@
 
 #include "mtcnn.h"
 
+#include <chrono>
+
 #ifdef _WIN32
-//#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED
 //#include <SDL_image.h>
 #else
 //#include <SDL2/SDL_image.h>
@@ -36,8 +38,6 @@
 #pragma comment( lib, "SDL2_image" )
 #endif
 #endif // SDL
-
-#include <chrono>
 
 typedef struct client_options
 {
@@ -203,7 +203,7 @@ public:
 			{
 				// aspect ratio of bitmap is wider than aspect ratio of screen
 				//
-				Target.h = int ( Target.w / fSource ) ;
+				Target.h = decltype( Target.h ) ( Target.w / fSource ) ;
 
 				_.fScale = ( float( Target.h ) / float( _.pSurface->h ) ) ;
 			}
@@ -211,7 +211,7 @@ public:
 			{
 				// aspect ratio of screen is wider than aspect ratio of bitmap
 				//
-				Target.w = int ( Target.h * fSource ) ;
+				Target.w = decltype( Target.w ) ( Target.h * fSource ) ;
 
 				_.fScale = ( float( Target.w ) / float( _.pSurface->w ) ) ;
 			}

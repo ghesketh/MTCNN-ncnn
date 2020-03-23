@@ -16,13 +16,6 @@
 
 #include "mtcnn.h"
 
-//#include <math.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <stdint.h>
-//#include <string.h>
-//#include <time.h>
-
 #include <algorithm>
 #include <map>
 #include <unordered_map>

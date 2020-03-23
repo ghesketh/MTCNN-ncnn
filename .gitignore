@@ -1,32 +1,27 @@
-# Prerequisites
-*.d
+# Auxiliary
+*.lastbuildstate
+*.log
+*.pdb
+*.tlog
+*.xml
 
-# Compiled Object files
-*.slo
+# Intermediate
+*.d
+*.gch
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
 *.pch
+*.slo
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+# Output
 *.a
-*.lib
-
-# Executables
-*.exe
-*.out
 *.app
+*.dll
+*.dylib
+*.exe
+*.la
+*.lai
+*.lib
+*.out
+*.so
