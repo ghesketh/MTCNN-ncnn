@@ -1,37 +1,29 @@
-## Welcome to GitHub Pages
+# MTCNN-ncnn
+[MTCNN](https://arxiv.org/abs/1604.02878v1) for Tencent's [ncnn](https://github.com/Tencent/ncnn), based on [cpuimage's](https://github.com/cpuimage/MTCNN) C++ project.
 
-You can use the [editor on GitHub](https://github.com/ghesketh/MTCNN-ncnn/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Projects
+[libmtcnn](https://github.com/ghesketh/MTCNN-ncnn/tree/master/libmtcnn) is a static library.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[mtcnn](https://github.com/ghesketh/MTCNN-ncnn/tree/master/mtcnn) is a shared library.
 
-### Markdown
+[mtcnn-stdout](https://github.com/ghesketh/MTCNN-ncnn/tree/master/mtcnn-stdout) is a usage example that links to the static library.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+[mtcnn-window](https://github.com/ghesketh/MTCNN-ncnn/tree/master/mtcnn-windows) is a usage example that links to the shared library.
 
-```markdown
-Syntax highlighted code block
+## Dependencies
+**libmtcnn** and **mtcnn** depend on [ncnn](https://github.com/Tencent/ncnn).
 
-# Header 1
-## Header 2
-### Header 3
+**mtcnn-stdout** depends on libmtcnn.
 
-- Bulleted
-- List
+**mtcnn-window** depends on mtcnn, [SDL2](http://libsdl.org/download-2.0.php), and [SDL2_image](https://www.libsdl.org/projects/SDL_image/).
 
-1. Numbered
-2. List
+## Parameters
+mtcnn-stdout and mtcnn-window accept command-line parameters:
+* -n {minimum face size}
+* -x {maximum face size}
+* {image file name}
 
-**Bold** and _Italic_ and `Code` text
+These can be a ratio between 0 and 1 (relative to the smaller side of the image) or an absolute number of pixels.  The limit for minimum is 12 pixels, which is the size of the model used in the first convolution.  The limit for maximum is the value of the smaller side of the image.
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ghesketh/MTCNN-ncnn/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## API
+For now, see [mtcnn.h](https://github.com/ghesketh/MTCNN-ncnn/blob/master/mtcnn.h), along with examples in [mtcnn-stdout.cpp](https://github.com/ghesketh/MTCNN-ncnn/blob/master/mtcnn-stdout.cpp) and [mtcnn-window.cpp](https://github.com/ghesketh/MTCNN-ncnn/blob/master/mtcnn-window.cpp).  More documentation will follow.
