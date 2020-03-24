@@ -1,5 +1,7 @@
 # Auxiliary
 *.db
+*.db-shm
+*.db-wal
 *.filters
 *.ipdb
 *.lastbuildstate

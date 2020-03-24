@@ -39,7 +39,12 @@ typedef struct
 
 } Object_t ;
 
-typedef void ( * ObjectCallback_t )( Object_t * pObject, void * pOpaque ) ;
+
+extern "C"
+{
+	typedef void ( * ObjectCallback_t )( Object_t * pObject, void * pOpaque ) ;
+}
+
 
 typedef struct
 {

@@ -1,0 +1,7 @@
+LIBRARY
+	mtcnnn
+
+EXPORTS
+	detect_init
+	detect_exec
+	detect_exit

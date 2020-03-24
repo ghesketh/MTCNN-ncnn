@@ -22,6 +22,7 @@
 #include <vector>
 
 #include <ncnn/net.h>
+//
 #ifdef _MSC_VER
 #pragma comment( lib, "ncnn" )
 #endif // _MSC_VER
