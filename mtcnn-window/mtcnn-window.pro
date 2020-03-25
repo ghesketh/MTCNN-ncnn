@@ -7,7 +7,8 @@ CONFIG += c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
-HEADERS += ../main.h
+HEADERS += ../main.h \
+    ../stb_image.h
 HEADERS += ../mtcnn.h
 
 LIBS += -L$${_PRO_FILE_PWD_}/../lib -lmtcnn
