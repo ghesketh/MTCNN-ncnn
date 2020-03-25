@@ -1,4 +1,4 @@
-//
+﻿//
 // mtcnn.h
 //
 #pragma once
@@ -28,40 +28,39 @@ namespace MTCNN
 } // namespace MTCNN
 
 
+extern "C"
+{
 typedef struct
 {
-	MTCNN::RECT< int32_t > Rect ;
-	MTCNN::RECT< float > Bias ;
-	MTCNN::POINT< float > Points[ 5 ] ;
+		MTCNN::RECT< int32_t > Rect ;
+		MTCNN::RECT< float > Bias ;
+		MTCNN::POINT< float > Points[ 5 ] ;
 
-	int32_t area ;
-	float score ;
+		int32_t area ;
+		float score ;
 
 } Object_t ;
 
 
-extern "C"
-{
-	typedef void ( * ObjectCallback_t )( Object_t * pObject, void * pOpaque ) ;
-}
+typedef void ( * ObjectCallback_t )( Object_t * pObject, void * pOpaque ) ;
 
 
 typedef struct
 {
-	ObjectCallback_t pMethod ;
-	void * pOpaque ;
+		ObjectCallback_t pMethod ;
+		void * pOpaque ;
 
-	unsigned char * pPixels ;
+		unsigned char * pPixels ;
 
-	int32_t iPixelD ;
-	int32_t iPixelH ;
-	int32_t iPixelW ;
-	int32_t iStride ;
+		int32_t iPixelD ;
+		int32_t iPixelH ;
+		int32_t iPixelW ;
+		int32_t iStride ;
 
-	float fScaleStep ;
+		float fScaleStep ;
 
-	float fSizeMax ;
-	float fSizeMin ;
+		float fSizeMax ;
+		float fSizeMin ;
 
 } detect_options_t ;
 
@@ -72,3 +71,4 @@ int detect_exec( detect_handle_t pDetect, detect_options_t * pOptions ) ;
 detect_handle_t detect_exit( detect_handle_t pDetect ) ;
 
 detect_handle_t detect_init() ;
+}

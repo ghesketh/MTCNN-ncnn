@@ -1,4 +1,4 @@
-//
+﻿//
 // mtcnn.cpp
 //
 #ifdef _MSC_VER
@@ -88,6 +88,11 @@ namespace MTCNN
 } // namespace MTCNN
 
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpadded"
+#endif
+//
 typedef struct Detect_t
 {
 	ncnn::Net mtcnn_p, mtcnn_r, mtcnn_o ;
@@ -100,6 +105,10 @@ typedef struct Detect_t
 	float fSizeMin = -1.f ;
 
 } Detect_t ;
+//
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
 
 // IncreasingScore()
