@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
@@ -21,6 +25,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -29,9 +40,15 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -54,6 +71,29 @@
       <ModuleDefinitionFile>mtcnn.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <OptimizeReferences>false</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>mtcnn.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\mtcnn.h" />
   </ItemGroup>
@@ -64,46 +104,70 @@
     <CustomBuild Include="..\mtcnn_o_model.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\mtcnn_o_param.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
     <CustomBuild Include="..\mtcnn_p_model.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
     <CustomBuild Include="..\mtcnn_p_param.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
     <CustomBuild Include="..\mtcnn_r_model.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
     <CustomBuild Include="..\mtcnn_r_param.asm">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm.exe -f win64 -I%(RelativeDir) -o $(IntDir)%(Filename).obj %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NASM creating %(Filename).obj</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NASM creating %(Filename).obj</Message>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

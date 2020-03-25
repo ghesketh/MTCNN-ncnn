@@ -653,7 +653,7 @@ static int32_t Detect( ObjectCallback_t Callback, void * pOpaque, ncnn::Mat & Bi
 		{
 			// relative
 			//
-			pDetect->fSizeMax = MTCNN::MAX< float >( 12.f, roundf( pDetect->fSizeMin * fSide ) ) ;
+			pDetect->fSizeMin = MTCNN::MAX< float >( 12.f, roundf( pDetect->fSizeMin * fSide ) ) ;
 		}
 		else if( 12.f > pDetect->fSizeMin )
 		{
