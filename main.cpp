@@ -1,4 +1,4 @@
-//
+﻿//
 // main.cpp
 //
 #ifdef _MSC_VER
@@ -32,6 +32,11 @@
 #pragma GCC diagnostic pop
 #endif
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpadded"
+#endif
+//
 typedef struct client_options
 {
 	char * pBitmap ;
@@ -42,6 +47,10 @@ typedef struct client_options
 	float fSizeMin ;
 
 } client_options_t ;
+//
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
 
 int SetOptions( client_options_t * pOptions, int iArgs, char * pArgs[] )
