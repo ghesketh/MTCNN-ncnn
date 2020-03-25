@@ -37,3 +37,4 @@
 *.lib
 *.out
 *.so
+*.exp

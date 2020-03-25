@@ -69,6 +69,12 @@ namespace MTCNN
 	}
 
 	template< typename TYPE >
+	TYPE CLAMP( TYPE Min, TYPE Max, TYPE x )
+	{
+		return ( MAX< TYPE >( Min, MIN< TYPE >( Max, x ) ) ) ;
+	}
+
+	template< typename TYPE >
 	struct SIZE
 	{
 		TYPE W ;
@@ -546,7 +552,7 @@ public:
 		{
 			if( bImage )
 			{
-				fprintf( stderr, "= scale = %8.6f" "\n", double( fScale ) ) ;
+				//fprintf( stderr, "= scale = %8.6f" "\n", double( fScale ) ) ;
 				break ;
 			}
 
@@ -555,7 +561,7 @@ public:
 
 			ncnn::resize_bilinear( Mat, Image, iImageW, iImageH ) ;
 
-			fprintf( stderr, "  scale = %8.6f" "\n", double( fScale ) ) ;
+			//fprintf( stderr, "  scale = %8.6f" "\n", double( fScale ) ) ;
 		}
 		while( 0 ) ;
 
@@ -592,29 +598,67 @@ static int32_t Detect( ObjectCallback_t Callback, void * pOpaque, ncnn::Mat & Bi
 
 		if( 0 > pDetect->fSizeMax )
 		{
+			// "default"
+			//
 			pDetect->fSizeMax = roundf( 0.48f * fSide ) ;
 		}
 		else if( 0.f == pDetect->fSizeMax )
 		{
+			// extrema
+			//
 			pDetect->fSizeMax = fSide ;
 		}
-		else if( 1 > pDetect->fSizeMax )
+		else if( !( 1.f < pDetect->fSizeMax ) )
 		{
-			pDetect->fSizeMax = roundf( pDetect->fSizeMax * fSide ) ;
+			// relative
+			//
+			pDetect->fSizeMax = MTCNN::MAX< float >( 12.f, roundf( pDetect->fSizeMax * fSide ) ) ;
 		}
+		else if( 12.f > pDetect->fSizeMax )
+		{
+			// floor
+			//
+			pDetect->fSizeMax = 12.f ;
+		}
+		else if( fSide < pDetect->fSizeMax )
+		{
+			// ceiling
+			//
+			pDetect->fSizeMax = fSide ;
+		}
+		// else leave unchanged
 
 		if( 0 > pDetect->fSizeMin )
 		{
-			pDetect->fSizeMin = 48.0f ;
+			// default
+			//
+			pDetect->fSizeMin = 48.f ;
 		}
 		else if( 0.f == pDetect->fSizeMin )
 		{
+			// extrema
+			//
 			pDetect->fSizeMin = MTCNN::fModelSize ;
 		}
-		else if( 1 > pDetect->fSizeMin )
+		else if( !( 1.f < pDetect->fSizeMin ) )
 		{
-			pDetect->fSizeMin = roundf( pDetect->fSizeMin * fSide ) ;
+			// relative
+			//
+			pDetect->fSizeMax = MTCNN::MAX< float >( 12.f, roundf( pDetect->fSizeMin * fSide ) ) ;
 		}
+		else if( 12.f > pDetect->fSizeMin )
+		{
+			// floor
+			//
+			pDetect->fSizeMin = 12.f ;
+		}
+		else if( pDetect->fSizeMax < pDetect->fSizeMin )
+		{
+			// ceiling
+			//
+			pDetect->fSizeMin = pDetect->fSizeMax ;
+		}
+		// else leave unchanged
 
 		//fprintf( stderr, "SizeMax = %.0f" "\n", double( _.fSizeMax ) ) ;
 		//fprintf( stderr, "SizeMin = %.0f" "\n", double( _.fSizeMin ) ) ;
